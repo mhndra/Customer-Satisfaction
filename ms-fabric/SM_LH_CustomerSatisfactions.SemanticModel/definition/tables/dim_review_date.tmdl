@@ -1,0 +1,171 @@
+table dim_review_date
+	lineageTag: 7b4b0744-df0f-4556-9347-3ab8e296731d
+	sourceLineageTag: [gold].[dim_review_date]
+	dataCategory: Time
+
+	column 'Review Date'
+		dataType: dateTime
+		isKey
+		formatString: dd/mm/yyyy
+		sourceProviderType: date
+		lineageTag: 545bcaaf-ce80-4400-b283-9625ae7e93f4
+		sourceLineageTag: Review Date
+		summarizeBy: none
+		sourceColumn: Review Date
+
+		changedProperty = FormatString
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	column 'First Day of Week'
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: datetime2
+		lineageTag: f98cb663-f835-4155-a0f2-9c1609c14323
+		sourceLineageTag: First Day of Week
+		summarizeBy: none
+		sourceColumn: First Day of Week
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'First Day of Month'
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: datetime2
+		lineageTag: f7e5387e-fd9e-4943-a11f-b94258adbb9e
+		sourceLineageTag: First Day of Month
+		summarizeBy: none
+		sourceColumn: First Day of Month
+
+		annotation SummarizationSetBy = Automatic
+
+	column Day
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 9b2fb7c8-25a3-4770-b1de-f52a439ffa80
+		sourceLineageTag: Day
+		summarizeBy: none
+		sourceColumn: Day
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 1bd5f54a-8b3b-4c5d-ac85-271d6d57b162
+		sourceLineageTag: Month
+		summarizeBy: none
+		sourceColumn: Month
+		sortByColumn: 'Month Sorting'
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quarter
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 1efce24f-dda9-47f2-99f7-cef7eef5a80c
+		sourceLineageTag: Quarter
+		summarizeBy: none
+		sourceColumn: Quarter
+		sortByColumn: 'Quarter Sorting'
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 0ae16476-abf1-4291-ba9b-62cb01572a31
+		sourceLineageTag: Year
+		summarizeBy: none
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Day of Week'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 7c400848-4f65-45bc-b743-f87402af37c8
+		sourceLineageTag: Day of Week
+		summarizeBy: none
+		sourceColumn: Day of Week
+		sortByColumn: 'Day of Week Sorting'
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Day of Week Sorting'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 388b3b17-c026-4a5f-8784-aca3252894b1
+		sourceLineageTag: Day of Week Sorting
+		summarizeBy: none
+		sourceColumn: Day of Week Sorting
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Sorting'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 2e1d9060-9eb5-4a97-b4ad-730f37bd357a
+		sourceLineageTag: Month Sorting
+		summarizeBy: none
+		sourceColumn: Month Sorting
+
+		changedProperty = DataType
+
+		changedProperty = FormatString
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Quarter Sorting'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: e8151969-b631-4af9-b6be-c1f5fefc6bab
+		sourceLineageTag: Quarter Sorting
+		summarizeBy: none
+		sourceColumn: Quarter Sorting
+
+		annotation SummarizationSetBy = Automatic
+
+	hierarchy 'Date Hierarchy'
+		lineageTag: cc403524-19fc-4df0-ae59-6268315f4aea
+
+		level Year
+			lineageTag: 791ca396-b30e-470b-a9c5-32de65a80cce
+			column: Year
+
+		level Quarter
+			lineageTag: 136495f5-e878-412d-a329-9f39a081c47b
+			column: Quarter
+
+		level Month
+			lineageTag: ebb71e81-0923-4e8c-8b4b-4d67be71a75b
+			column: Month
+
+		level Day
+			lineageTag: a3340d72-f84a-4372-bb4c-06cf99889ee2
+			column: Day
+
+		changedProperty = Name
+
+	partition dim_review_date = entity
+		mode: directLake
+		source
+			entityName: dim_review_date
+			schemaName: gold
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

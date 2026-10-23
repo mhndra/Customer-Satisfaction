@@ -1,0 +1,43 @@
+table dim_users
+	lineageTag: 775f8173-1e2a-4824-b910-c81ea9369e56
+	sourceLineageTag: [gold].[dim_users]
+
+	column 'User Key'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: b46a8e6d-e56a-4b4a-9881-5bb72a4eac85
+		sourceLineageTag: User Key
+		summarizeBy: none
+		sourceColumn: User Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'User Name'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 36f22e70-b723-4275-a389-e238767776bc
+		sourceLineageTag: User Name
+		summarizeBy: none
+		sourceColumn: User Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'User Image'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: d3ff243c-0d0e-4c3f-a12a-b29b72410784
+		sourceLineageTag: User Image
+		summarizeBy: none
+		sourceColumn: User Image
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_users = entity
+		mode: directLake
+		source
+			entityName: dim_users
+			schemaName: gold
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

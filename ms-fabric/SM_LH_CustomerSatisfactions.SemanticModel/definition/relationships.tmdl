@@ -1,0 +1,25 @@
+relationship 91657494-7850-bce2-90a8-e0eab6f3ac45
+	relyOnReferentialIntegrity
+	fromColumn: fact_customer_satisfactions.'App Key'
+	toColumn: dim_apps.'App Key'
+
+relationship 2f46391a-3cca-7f65-2ffe-e4b006254800
+	relyOnReferentialIntegrity
+	fromColumn: fact_customer_satisfactions.'User Key'
+	toColumn: dim_users.'User Key'
+
+relationship 83913671-87be-1fd6-1872-b0a9e3d96247
+	relyOnReferentialIntegrity
+	fromColumn: fact_customer_satisfactions.'Review Date (UTC)'
+	toColumn: dim_review_date.'Review Date'
+
+relationship aa6efa40-b4a5-ab05-f972-04a97d76474a
+	relyOnReferentialIntegrity
+	fromColumn: fact_customer_satisfactions.'Review Key'
+	toColumn: dim_reviews.'Review Key'
+
+relationship 1dc88682-3920-016f-8f96-f1e8c908d1d6
+	relyOnReferentialIntegrity
+	fromColumn: fact_customer_satisfactions.'Root Cause Key'
+	toColumn: dim_root_causes.'Root Cause Key'
+

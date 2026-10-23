@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Notebook",
+    "displayName": "Notebook_GooglePlayReviewsExtraction"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "92aa42f1-6077-bace-4386-a006c37376e7"
+  }
+}

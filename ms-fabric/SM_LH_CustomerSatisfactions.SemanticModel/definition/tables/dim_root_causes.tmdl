@@ -1,0 +1,75 @@
+table dim_root_causes
+	lineageTag: b56f8dc9-72bc-4678-b8c6-bdddb7e6323f
+	sourceLineageTag: [gold].[dim_root_causes]
+
+	column 'Root Cause Key'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 7b886450-35a7-4e78-9d20-3f068a08402e
+		sourceLineageTag: Root Cause Key
+		summarizeBy: none
+		sourceColumn: Root Cause Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Root Cause'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: d39bde98-e020-4c59-a91b-6289054d4b10
+		sourceLineageTag: Root Cause
+		summarizeBy: none
+		sourceColumn: Root Cause
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Root Cause Weight'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 87af9240-ce89-4238-8ac5-83887e17e088
+		sourceLineageTag: Root Cause Weight
+		summarizeBy: none
+		sourceColumn: Root Cause Weight
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Cluster ID'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 57df78ae-7554-4599-85ef-229975dcaa3f
+		sourceLineageTag: Cluster ID
+		summarizeBy: none
+		sourceColumn: Cluster ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Cluster Name'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 45748492-5ae1-4f73-9bcc-cdc8238b9743
+		sourceLineageTag: Cluster Name
+		summarizeBy: none
+		sourceColumn: Cluster Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Cluster Description'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 594a3e16-20a5-4146-aacd-fee212d4e742
+		sourceLineageTag: Cluster Description
+		summarizeBy: none
+		sourceColumn: Cluster Description
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_root_causes = entity
+		mode: directLake
+		source
+			entityName: dim_root_causes
+			schemaName: gold
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

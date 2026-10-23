@@ -1,0 +1,278 @@
+version: 2
+
+models:
+  - name: dim_apps
+    description: ''
+    columns:
+      - name: App Key
+        quote: true
+        description: ''
+        tests:
+          - not_null
+          - unique
+        
+      - name: App ID
+        quote: true
+        description: ''
+        tests:
+          - not_null
+        
+      - name: App Version
+        quote: true
+        description: ''
+        tests:
+          - not_null
+  
+
+  - name: dim_review_date
+    description: ''
+    columns:
+      - name: Review Date
+        quote: true
+        description: ''
+        tests:
+          - not_null
+          - unique
+
+      - name: First Day of Week
+        quote: true
+        description: ''
+        tests:
+          - not_null
+
+      - name: First Day of Month
+        quote: true
+        description: ''
+        tests:
+          - not_null
+
+      - name: Day
+        quote: true
+        description: ''
+        tests:
+          - not_null
+
+      - name: Month
+        quote: true
+        description: ''
+        tests:
+          - not_null
+
+      - name: Month Sorting
+        quote: true
+        description: ''
+        tests:
+          - not_null
+          
+      - name: Quarter
+        quote: true
+        description: ''
+        tests:
+          - not_null
+          
+      - name: Quarter Sorting
+        quote: true
+        description: ''
+        tests:
+          - not_null
+          
+
+      - name: Year
+        quote: true
+        description: ''
+        tests:
+          - not_null
+
+      - name: Day of Week
+        quote: true
+        description: ''
+        tests:
+          - not_null
+
+      - name: Day of Week Sorting
+        quote: true
+        description: ''
+        tests:
+          - not_null
+  
+
+  - name: dim_reviews
+    description: ''
+    columns:
+      - name: Review Key
+        quote: true
+        description: ''
+        tests:
+          - not_null
+          - unique
+
+      - name: Review ID
+        quote: true
+        description: ''
+        tests:
+          - not_null
+          - unique
+
+      - name: Review Created Version
+        quote: true
+        description: ''
+        tests:
+          - not_null
+
+      - name: Review
+        quote: true
+        description: ''
+        tests:
+          - not_null
+
+      - name: Has Complaint
+        quote: true
+        description: ''
+        tests:
+          - not_null
+
+      - name: Primary Theme
+        quote: true
+        description: ''
+        tests:
+          - not_null
+
+      - name: Secondary Themes
+        quote: true
+        description: ''
+        tests:
+          - not_null
+
+      - name: Reasoning
+        quote: true
+        description: ''
+        tests:
+          - not_null
+
+
+  - name: dim_root_causes
+    description: ''
+    columns:
+      - name: Root Cause Key
+        quote: true
+        description: ''
+        tests:
+          - not_null
+          - unique
+
+      - name: Root Cause
+        quote: true
+        description: ''
+        tests:
+          - not_null
+          - unique
+
+      - name: Root Cause Weight
+        quote: true
+        description: ''
+        tests:
+          - not_null
+
+      - name: Cluster ID
+        quote: true
+        description: ''
+        tests:
+          - not_null
+
+      - name: Cluster Name
+        quote: true
+        description: ''
+        tests:
+          - not_null
+
+      - name: Cluster Description
+        quote: true
+        description: ''
+        tests:
+          - not_null
+
+
+  - name: dim_users
+    description: ''
+    columns:
+      - name: User Key
+        quote: true
+        description: ''
+        tests:
+          - not_null
+          - unique
+
+      - name: User Name
+        quote: true
+        description: ''
+        tests:
+          - not_null
+          - unique
+
+      - name: user Image
+        quote: true
+        description: ''
+        tests:
+          - not_null
+
+
+  - name: fact_customer_satisfactions
+    description: ''
+    columns:
+      - name: Customer Satisfaction Key
+        quote: true
+        description: ''
+        tests:
+          - not_null
+          - unique
+
+      - name: Review Key
+        quote: true
+        description: ''
+        tests:
+          - not_null
+          - relationships:
+              to: "{{ ref('dim_reviews') }}"
+              field: '`Review Key`'
+
+      - name: User Key
+        quote: true
+        description: ''
+        tests:
+          - not_null
+          - relationships:
+              to: "{{ ref('dim_users') }}"
+              field: '`User Key`'
+
+      - name: App Key
+        quote: true
+        description: ''
+        tests:
+          - not_null
+          - relationships:
+              to: "{{ ref('dim_apps') }}"
+              field: '`App Key`'
+
+      - name: Root Cause Key
+        quote: true
+        description: ''
+        tests:
+          - not_null
+          - relationships:
+              to: "{{ ref('dim_root_causes') }}"
+              field: '`Root Cause Key`'
+
+      - name: Review Date (UTC)
+        quote: true
+        description: ''
+        tests:
+          - not_null
+          - relationships:
+              to: "{{ ref('dim_review_date') }}"
+              field: '`Review Date`'
+
+      - name: Satisfaction Score
+        quote: true
+        description: ''
+        tests:
+          - not_null

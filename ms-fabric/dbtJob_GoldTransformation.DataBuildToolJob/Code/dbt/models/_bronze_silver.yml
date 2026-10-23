@@ -1,0 +1,12 @@
+sources:
+  - name: bronze
+    database: Lakehouse_CustomerSatisfaction
+    schema: bronze
+    tables:
+      - name: google_play_reviews
+
+  - name: silver
+    database: Lakehouse_CustomerSatisfaction
+    schema: silver
+    tables:
+      - name: enriched_gplay_reviews

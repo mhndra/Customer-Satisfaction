@@ -1,0 +1,85 @@
+table fact_customer_satisfactions
+	lineageTag: 468a5ad3-99f6-4e37-a225-f0c68229e6f0
+	sourceLineageTag: [gold].[fact_customer_satisfactions]
+
+	column 'Customer Satisfaction Key'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 0ec89db4-084b-49a4-a189-2c7c5d958b17
+		sourceLineageTag: Customer Satisfaction Key
+		summarizeBy: none
+		sourceColumn: Customer Satisfaction Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Review Key'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 7d94c17b-f382-44c7-9dab-2badd1f047e2
+		sourceLineageTag: Review Key
+		summarizeBy: none
+		sourceColumn: Review Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'User Key'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: f880fe2f-564e-4306-b151-7efa38f3d0b0
+		sourceLineageTag: User Key
+		summarizeBy: none
+		sourceColumn: User Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'App Key'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: c4696694-4ff0-448a-bf9f-1213915f4990
+		sourceLineageTag: App Key
+		summarizeBy: none
+		sourceColumn: App Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Root Cause Key'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 91260522-fecb-4048-8672-69b436afb5d2
+		sourceLineageTag: Root Cause Key
+		summarizeBy: none
+		sourceColumn: Root Cause Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Review Date (UTC)'
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: date
+		lineageTag: 934c2113-218f-4846-adbc-b4c102d4cd77
+		sourceLineageTag: Review Date (UTC)
+		summarizeBy: none
+		sourceColumn: Review Date (UTC)
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Satisfaction Score'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: be1b4e44-85cd-4aaf-a315-1771d1ce27f2
+		sourceLineageTag: Satisfaction Score
+		summarizeBy: sum
+		sourceColumn: Satisfaction Score
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_customer_satisfactions = entity
+		mode: directLake
+		source
+			entityName: fact_customer_satisfactions
+			schemaName: gold
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

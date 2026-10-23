@@ -1,0 +1,43 @@
+table dim_apps
+	lineageTag: 6c9a970e-c516-43d9-bfda-6c833d27abe1
+	sourceLineageTag: [gold].[dim_apps]
+
+	column 'App Key'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: de2880be-0c90-454d-b83b-0e826e7da803
+		sourceLineageTag: App Key
+		summarizeBy: none
+		sourceColumn: App Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'App ID'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 2b23871c-8752-4f22-acb1-c01cd80a27fa
+		sourceLineageTag: App ID
+		summarizeBy: none
+		sourceColumn: App ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'App Version'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 3f2ef397-3f41-4ea1-8fe8-b226e1da4519
+		sourceLineageTag: App Version
+		summarizeBy: none
+		sourceColumn: App Version
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_apps = entity
+		mode: directLake
+		source
+			entityName: dim_apps
+			schemaName: gold
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,28 @@
+{
+  "project": {
+    "projectType": "OneLake",
+    "folderPath": "dbt"
+  },
+  "profile": {
+    "profileType": "Lakehouse",
+    "schema": "gold",
+    "connectionSettings": {
+      "name": "Lakehouse_CustomerSatisfactionAnalytics",
+      "properties": {
+        "type": "Lakehouse",
+        "typeProperties": {
+          "workspaceId": "45871885-07df-4095-b5ae-108f2abcd427",
+          "artifactId": "2ba289a8-68ec-49c4-892f-15dcf08cbd1a",
+          "endPoint": "3nlrmuh7afoetckofuhrz4tpzq-qumioro7a6kubnnocchsvpgue4.datawarehouse.fabric.microsoft.com"
+        }
+      }
+    }
+  },
+  "command": {
+    "operation": "build",
+    "arguments": {
+      "exclude": "",
+      "threads": 4
+    }
+  }
+}

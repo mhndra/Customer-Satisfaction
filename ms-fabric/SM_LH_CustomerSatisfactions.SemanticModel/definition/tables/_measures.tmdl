@@ -1,0 +1,88 @@
+table _measures
+	lineageTag: 4a68462e-6463-48a7-a82b-ff179898c650
+
+	measure 'Avg. App Rating' = AVERAGE(fact_customer_satisfactions[Satisfaction Score])
+		formatString: 0.00
+		displayFolder: 00_csat_and_reviews
+		lineageTag: 52983b6d-0d07-4472-b1fb-7c3e57df7844
+
+	measure 'Total Complaint Reviews' = ```
+			CALCULATE(
+			    COUNT(fact_customer_satisfactions[Review Key]), 
+			    FILTER(dim_reviews, dim_reviews[Has Complaint] == TRUE())
+			)
+			```
+		formatString: 0
+		displayFolder: 00_csat_and_reviews
+		lineageTag: 88daaa49-c5b5-4d0b-9993-b5199508bb99
+
+	measure 'Total Reviews' = DISTINCTCOUNT(fact_customer_satisfactions[Review Key])
+		formatString: 0
+		displayFolder: 00_csat_and_reviews
+		lineageTag: bd541ea8-9e3c-40a7-9c43-69b38cb09af7
+
+	measure 'Top Topics Impacting the Stage' =
+			
+			
+			VAR SummaryTable = ADDCOLUMNS(
+			    ALLSELECTED(dim_root_causes[Cluster Name]),
+			    "@CSAT", [Avg. App Rating],
+			    "@Complaints", [Total Complaint Reviews]
+			)
+			
+			VAR MostTopics = TOPN(2, SummaryTable, [@Complaints], DESC)
+			VAR CurrentTopic = SELECTEDVALUE(dim_root_causes[Cluster Name])
+			
+			RETURN
+			IF(
+			    CurrentTopic IN SELECTCOLUMNS(MostTopics, "@Topic", dim_root_causes[Cluster Name]),
+			    CurrentTopic
+			)
+		lineageTag: 96fc22f1-d118-4d30-a55a-9bbd36475f87
+
+	measure 'Text - Complaint Reviews and Avg. App Rating' = [Total Complaint Reviews]
+		lineageTag: 019c91a1-3bf8-4f21-9a4d-93d95faeef7c
+
+		formatStringDefinition = ```
+				"""" 
+				    & FORMAT ( [Total Complaint Reviews], "0", "en-US" ) 
+				    & " complaint reviews, average app rating: " 
+				    & FORMAT ( [Avg. App Rating], "0.00", "en-US" )
+				& """"
+				```
+
+	measure 'Total Users' = DISTINCTCOUNT(fact_customer_satisfactions[User Key])
+		formatString: 0
+		displayFolder: 00_csat_and_reviews
+		lineageTag: 7987b482-0d9a-43b7-a72d-62df58a672cc
+
+	measure 'Text - Period View' =
+			
+			
+			VAR StartPeriod = MIN(dim_review_date[Review Date])
+			VAR EndPeriod = MAX(dim_review_date[Review Date])
+			
+			RETURN
+			"📅 Period view: " &
+			FORMAT(StartPeriod, "dd/mm/yyyy") &
+			" - " &
+			FORMAT(EndPeriod, "dd/mm/yyyy")
+		lineageTag: ee0391e4-dd2f-499e-a0a7-95bc663fdf88
+
+	column Column
+		formatString: 0
+		lineageTag: 50223767-f522-4ed1-8477-529b0f752298
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _measures = calculated
+		mode: import
+		source = Row("Column", BLANK())
+
+	annotation PBI_Id = aec17e88a82d42bd919e2d211d14cd61
+
+	annotation 436ba87b-9c83-4389-a31b-ebd06a36be98 = {"Expression":""}
+

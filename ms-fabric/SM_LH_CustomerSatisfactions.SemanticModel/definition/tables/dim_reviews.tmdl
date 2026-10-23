@@ -1,0 +1,74 @@
+table dim_reviews
+	lineageTag: 1f1e685b-3f11-4d40-a08f-ec741a99301b
+	sourceLineageTag: [gold].[dim_reviews]
+
+	column 'Review Key'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: c0db9679-3402-49f2-a16b-77d1abfcaf01
+		sourceLineageTag: Review Key
+		summarizeBy: none
+		sourceColumn: Review Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Review ID'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 681ec31c-3809-46c3-86b6-7e7d7580acdd
+		sourceLineageTag: Review ID
+		summarizeBy: none
+		sourceColumn: Review ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Review Created Version'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: f0365e28-fa6d-4f08-b256-ef3a16588a3d
+		sourceLineageTag: Review Created Version
+		summarizeBy: none
+		sourceColumn: Review Created Version
+
+		annotation SummarizationSetBy = Automatic
+
+	column Review
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 3092fac4-0ab9-4c15-b74a-4400414d7eed
+		sourceLineageTag: Review
+		summarizeBy: none
+		sourceColumn: Review
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Has Complaint'
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		sourceProviderType: bit
+		lineageTag: 24c442d3-57a3-4cba-b118-eeb20ff91df8
+		sourceLineageTag: Has Complaint
+		summarizeBy: none
+		sourceColumn: Has Complaint
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Primary Theme'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: f4fcc6a6-a35d-4687-b023-e47bc305371b
+		sourceLineageTag: Primary Theme
+		summarizeBy: none
+		sourceColumn: Primary Theme
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_reviews = entity
+		mode: directLake
+		source
+			entityName: dim_reviews
+			schemaName: gold
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+
