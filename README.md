@@ -14,7 +14,7 @@ Sumber data yang digunakan berasal dari rating dan ulasan aplikasi OTA di Google
 
 ## 03 Data Pipeline
 
-![alt text](images/data_pipeline)
+![alt text](images/data_pipeline.png)
 
 ## 04 Semantic Model
-Berdasarkan data pipeline, hasil akhir alur ELT data adalah data warehouse dengan star schema yang disimpan dalam skema gold di Lakehouse_CUstomerSatisfactionAnalytics. Data warehouse yang terdiri dari tabel dimensi dan fakta ini digunakan untuk pembuatan dashboard. Pembuatan dashboard dilakukan dengan menggunakan Fabric Semantic Model untuk data modeling dan pembuatan pengukuran, serta Fabric Report untuk visualisasi data.
+Berdasarkan data pipeline, hasil akhir alur ELT data adalah data warehouse dengan star schema yang disimpan dalam skema gold di Lakehouse_CUstomerSatisfactionAnalytics. Data warehouse yang terdiri dari tabel dimensi dan fakta ini digunakan untuk pembuatan dashboard. Pembuatan dashboard dilakukan dengan menggunakan Fabric Semantic Model untuk data modeling dan pembuatan pengukuran, serta Fabric Report untuk visualisasi data. Berikut informasi tabel dimensi dan fakta yang digunakan:
