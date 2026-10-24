@@ -17,7 +17,7 @@ Sumber data yang digunakan berasal dari rating dan ulasan aplikasi OTA di Google
 ![alt text](images/data_pipeline.png)
 
 ## 04 Semantic Model
-Berdasarkan data pipeline, hasil akhir alur ELT data adalah data warehouse dengan star schema yang disimpan dalam skema gold di Lakehouse_CUstomerSatisfactionAnalytics. Data warehouse yang terdiri dari tabel dimensi dan fakta ini digunakan untuk pembuatan dashboard. Pembuatan dashboard dilakukan dengan menggunakan Fabric Semantic Model untuk data modeling dan pembuatan pengukuran, serta Fabric Report untuk visualisasi data. Berikut informasi tabel dimensi dan fakta yang digunakan:
+Berdasarkan data pipeline, hasil akhir alur ELT data adalah data warehouse dengan star schema yang disimpan dalam skema gold di Lakehouse_CUstomerSatisfactionAnalytics. Kemudian, data warehouse yang terdiri dari tabel dimensi dan fakta ini digunakan dengan menggunakan Fabric Semantic Model untuk data modeling. Data modeling yang dilakukan terdiri dari konfigurasi hubungan antara tabel dimensi dengan tabel fakta, pembuatan pengukuran dengan DAX, dan konfigurasi format tampilan data. Hasil data modeling tersimpan di SM_LH_CustomerSatisfaction. Berikut informasi tabel dimensi dan fakta yang digunakan:
 
 ![alt text](images/star_schema_diagram.png)
 
@@ -102,3 +102,49 @@ Berdasarkan data pipeline, hasil akhir alur ELT data adalah data warehouse denga
         |User Key       | VARCHAR(8000) | Surrogate key                         |
         |User Name      | VARCHAR(8000) | Categorical data/Dimension attribute  |
         |User Image     | VARCHAR(8000) | Categorical data/Dimension attribute  |
+
+## 05 Data Visualization
+Visualisasi data dilakukan menggunakan Fabric Report dengan memanfaatkan Fabric Semantic Model yang telah dibuat sebelumnya. Hasil visualisasi data berupa dashboard yang tersimpan di Report_CustomerSatisfaction. Dashboard ini terdiri dari dua halaman, yaitu sebagai berikut:
+
+### 05-1 Halaman 1 - Main
+
+![alt text](images/main.png)
+
+Halaman ini menampilkan ringkasan rating dan ulasan pengguna aplikasi di Google Play Store dalam periode setahun terakhir (6 Oktober 2025 - 5 Oktober 2026). Berikut penjelasan visualisasi yang ditampilkan pada halaman ini:
+- Multi-row cards:
+    - Topics Impacting the Learn Stage → Dua topik dengan jumlah ulasan komplain pengguna aplikasi terbanyak terhadap tahapan Learn dalam Customer Journey.
+    - Topics Impacting the Buy Stage → Dua topik dengan jumlah ulasan komplain pengguna aplikasi terbanyak terhadap tahapan Buy dalam Customer Journey.
+    - Topics Impacting the Get Stage → Dua topik dengan jumlah ulasan komplain pengguna aplikasi terbanyak terhadap tahapan Get dalam Customer Journey.
+    - Topics Impacting the Use Stage → Dua topik dengan jumlah ulasan komplain pengguna aplikasi terbanyak terhadap tahapan Use dalam Customer Journey.
+    - Topics Impacting the Pay Stage → Dua topik dengan jumlah ulasan komplain pengguna aplikasi terbanyak terhadap tahapan Pay dalam Customer Journey.
+    - Topics Impacting the Get Help Stage → Dua topik dengan jumlah ulasan komplain pengguna aplikasi terbanyak terhadap tahapan Get Help dalam Customer Journey.
+    - Other Topics → Topik ulasan komplain pengguna aplikasi yang tidak teridentifikasi pada tahapan apapun dalam Customer Journey.
+
+- Cards:
+    - Total Reviews → Jumlah ulasan pengguna aplikasi dalam periode.
+    - Total Complaint Reviews → Jumlah ulasan komplain pengguna aplikasi dalam periode.
+    - Avg. App Rating → Rata-rata rating aplikasi dalam periode.
+
+- Charts:
+    - Total Complaint Reviews by Stage → Perbandingan jumlah ulasan komplain pengguna aplikasi antara tahapan dalam periode.
+    - Total Complaint Reviews by Topic → Perbandingan jumlah ulasan komplain pengguna aplikasi antara topik dalam periode.
+    - Total Complaint Reviews and Avg. App Rating by Topic → Pengelompokkan topik berdasarkan hubungan jumlah ulasan komplain pengguna aplikasi dengan rata-rata rating aplikasi, serta ambang batas rata-rata dari keseluruhan jumlah ulasan komplain pengguna aplikasi dalam periode.
+    - Average App Rating Trend → Perkembangan rata-rata rating aplikasi sepanjang bulan dalam periode.
+
+### 05-2 Halaman 2 - Stage
+
+![alt text](images/stage.png)
+
+Halaman ini menampilkan rincian ulasan komplain pengguna aplikasi untuk memberikan analsis mendalam pada salah satu tahapan (pada gambar ini menampilkan tahapan Buy) dalam periode yang sama dengan halaman 1. Halaman ini muncul saat melakukan drill through salah satu tahapan yang ditampilkan oleh Total Complaint Reviews by Stage chart di Halaman 1. Berikut penjelasan visualisasi yang ditampilkan pada halaman ini:
+- Cards:
+    - Stage → Tahapan yang sedang dianalisis mendalam.
+    - Total Complaint Reviews → Jumlah ulasan komplain pengguna aplikasi pada tahapan Buy dalam periode.
+    - Avg. App Rating → Rata-rata rating aplikasi pada tahapan Buy dalam periode.
+    - Total Topics → Jumlah topik terkait tahapan Buy dalam periode.
+
+- Tables:
+    - Review Date → Tanggal ulasan komplain pengguna aplikasi dibagikan.
+    - Review → Isi ulasan komplain pengguna aplikasi.
+    - Root Cause → Akar masalah ulasan komplain pengguna aplikasi.
+    - Topik → Topik ulasan komplain pengguna aplikasi.
+    - Description → Deskripsi topik.
